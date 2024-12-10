@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Details{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f0f8ff; /* Light blueish background for better readability */
+    }
+    .table-container {
+        margin-top: 50px;
+    }
+    .table th {
+        background-color: #343a40; /* Dark gray for headers */
+        color: #ffffff;
+        text-align: center;
+    }
+    .table td, .table th {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .action-links a {
+        margin: 0 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .action-links a:hover {
+        opacity: 0.8;
+    }
+    .no-data {
+        font-style: italic;
+        color: #6c757d; /* Neutral gray for "No data" message */
+    }
+</style>
+
+<div class="container table-container">
+    <h2 class="text-center mb-4">Student Details</h2>
+    <table class="table table-bordered table-striped shadow-lg">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Email Address</th>
+                <th>Age</th>
+                <th>Joining Date</th>
+                <th>Course</th>
+                <th>Course Fee</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.student_name }}</td>
+                <td>{{ s.student_address }}</td>
+                <td>{{ s.student_age }}</td>
+                <td>{{ s.joining_date }}</td>
+                <td>{{ s.course.course_name }}</td>
+                <td>{{ s.course.fee }}</td>
+                <td class="action-links">
+                    <a href="{% url 'edit_student' s.id %}" class="text-primary">Edit</a>
+                    <a href="{% url 'delete_student' s.id %}" class="text-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center no-data">No students available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

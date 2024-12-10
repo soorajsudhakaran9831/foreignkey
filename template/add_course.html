@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/img1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #333; /* Slightly darker text for readability */
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+        background-color: #20c997; /* Sea-green header */
+        color: white;
+        padding: 15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .btn-success {
+        background-color: #28a745; /* Bright green button */
+        border: none;
+        font-size: 1rem;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .btn-success:hover {
+        background-color: #218838; /* Darker green on hover */
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #20c997; /* Sea-green border on focus */
+        box-shadow: 0 0 5px rgba(32, 201, 151, 0.5);
+    }
+
+    .d-grid {
+        margin-top: 15px;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-lg">
+                <div class="card-header">
+                    Add Course
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'add_coursedb' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="courseName" class="form-label">Course Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="courseName"
+                                name="course_name"
+                                required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label for="courseFee" class="form-label">Course Fee</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="courseFee"
+                                name="fee"
+                                required
+                            >
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

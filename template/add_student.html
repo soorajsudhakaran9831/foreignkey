@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Student{% endblock %}
+
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/img1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #333;
+    }
+
+    .form-container {
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: #5cb3ff; /* Light blue */
+        color: #fff;
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 1rem;
+        font-weight: bold;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        outline: none;
+        border-color: #5cb3ff;
+        box-shadow: 0 0 5px rgba(92, 179, 255, 0.7);
+    }
+
+    .btn-submit {
+        background-color: #5cb3ff;
+        color: white;
+        font-size: 1rem;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+        transition: 0.3s ease;
+        font-weight: bold;
+    }
+
+    .btn-submit:hover {
+        background-color: #ff6f61; /* Light coral for hover */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            margin: 0 1rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<div class="container form-container">
+    <div class="card">
+        <div class="card-header">
+            Add Student
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'add_studentdb' %}">
+                {% csrf_token %}
+                <div>
+                    <label for="student_name" class="form-label">Student Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="student_name"
+                        name="student_name"
+                        placeholder="Enter Name"
+                        required
+                    />
+                </div>
+                <div>
+                    <label for="student_address" class="form-label">Address</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="student_address"
+                        name="student_address"
+                        placeholder="Address"
+                        required
+                    />
+                </div>
+                <div>
+                    <label for="age" class="form-label">Age</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="age"
+                        name="age"
+                        placeholder="Enter Age"
+                        required
+                    />
+                </div>
+                <div>
+                    <label for="date" class="form-label">Joining Date</label>
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="date"
+                        name="date"
+                        required
+                    />
+                </div>
+                <div>
+                    <label for="sel" class="form-label">Course</label>
+                    <select
+                        class="form-select"
+                        id="sel"
+                        name="sel"
+                        required
+                    >
+                        <option value="" disabled selected>Select Course</option>
+                        {% for c in course %}
+                        <option value="{{ c.id }}">{{ c.course_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
